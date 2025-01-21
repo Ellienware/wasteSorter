@@ -23,16 +23,16 @@ wasteSorter is a Spring Boot application designed to help categorize waste mater
 git clone https://github.com/Ellienware/wasteSorter.git
 cd wasteSorter
 
-## Build and Run the Application
+Build and Run the Application
 
-## To build and run the application, execute the following command in your terminal:
+To build and run the application, execute the following command in your terminal:
 
 mvn clean install
 
 mvn spring-boot:run
 
-## This will start the Spring Boot application on port 8080.
-## Access the H2 Database Console
+This will start the Spring Boot application on port 8080.
+Access the H2 Database Console
 
 The H2 database console can be accessed by navigating to http://localhost:8081/h2-console. You can use the following credentials to log in:
 
