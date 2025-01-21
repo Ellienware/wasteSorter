@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WasteCategoryRepository extends JpaRepository<WasteCategory, Long>{
+    boolean existsByName(String name);
 
 }

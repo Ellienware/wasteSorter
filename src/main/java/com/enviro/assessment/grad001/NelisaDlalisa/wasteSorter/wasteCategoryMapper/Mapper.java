@@ -6,7 +6,7 @@ import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.entity.WasteCateg
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class WasteCategoryMapper {
+public class Mapper {
 
     public static WasteCategory toEntity(WasteCategoryDTO wasteCategoryDTO) {
         if (wasteCategoryDTO == null) return null;

@@ -19,25 +19,25 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Check if the table is empty and insert data if so
         if (wasteCategoryRepository.count() == 0) {
-            WasteCategory plastic = new WasteCategory(
+            WasteCategory metal = new WasteCategory(
                     null,
-                    "Plastic",
-                    "Place in recycling bins for plastics.",
-                    "Wash and dry before recycling.");
-            WasteCategory glass = new WasteCategory(
+                    "Metal",
+                    "Place in metal recycling bins.",
+                    "Remove any attached non-metal parts before recycling.");
+            WasteCategory Electronics = new WasteCategory(
                     null,
-                    "Glass",
-                    "Dispose of in glass bins.",
-                    "Avoid breaking glass during disposal.");
-            WasteCategory paper = new WasteCategory(
+                    "Electronics",
+                    "Drop off at e-waste recycling centers.",
+                    "Do not throw electronics in regular bins; remove batteries where applicable.");
+            WasteCategory organicWaste = new WasteCategory(
                     null,
-                    "Paper",
-                    "Dispose in paper recycling bins.",
-                    "Keep dry to avoid contamination.");
+                    "Organic Waste",
+                    "Place in compostable waste bins.",
+                    "Avoid including meat or dairy products in compost.");
 
-            wasteCategoryRepository.save(plastic);
-            wasteCategoryRepository.save(glass);
-            wasteCategoryRepository.save(paper);
+            wasteCategoryRepository.save(metal);
+            wasteCategoryRepository.save(Electronics);
+            wasteCategoryRepository.save(organicWaste);
         }
     }
 }

@@ -6,6 +6,7 @@ import lombok.*;
 
 @NoArgsConstructor
 public class WasteCategoryDTO {
+
     public WasteCategoryDTO(Long id, String name, String disposalGuidelines, String recyclingTips) {
         this.id = id;
         this.name = name;

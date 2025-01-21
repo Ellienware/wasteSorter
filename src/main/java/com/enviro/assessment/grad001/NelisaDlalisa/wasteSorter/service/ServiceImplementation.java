@@ -4,7 +4,8 @@ import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.dto.WasteCategory
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.entity.WasteCategory;
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.exception.CategoryNotFoundException;
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.repository.WasteCategoryRepository;
-import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.wasteCategoryMapper.WasteCategoryMapper;
+import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.wasteCategoryMapper.Mapper;
+import jakarta.persistence.EntityExistsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class ServiceImplementation implements ServiceInterface {
     @Override
     public List<WasteCategoryDTO> getAllCategories() {
         return wasteCategoryRepository.findAll().stream()
-                .map(WasteCategoryMapper::toDTO)
+                .map(Mapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -31,15 +32,22 @@ public class ServiceImplementation implements ServiceInterface {
     public WasteCategoryDTO getCategoryById(Long id) {
         WasteCategory wasteCategory = wasteCategoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException("Category by id: " + id + " not found"));
-        return WasteCategoryMapper.toDTO(wasteCategory);
+        return Mapper.toDTO(wasteCategory);
     }
-
     @Override
     @Transactional
     public WasteCategoryDTO createCategory(WasteCategoryDTO categoryDTO) {
-        WasteCategory wasteCategory = WasteCategoryMapper.toEntity(categoryDTO);
-        return WasteCategoryMapper.toDTO(wasteCategoryRepository.save(wasteCategory));
+        if (categoryDTO == null || categoryDTO.getName() == null || categoryDTO.getName().isEmpty()) {
+            throw new IllegalArgumentException("Category name cannot be null or empty");
+        }
+        if (wasteCategoryRepository.existsByName(categoryDTO.getName())) {
+            throw new EntityExistsException("Category with name '" + categoryDTO.getName() + "' already exists");
+        }
+        WasteCategory wasteCategory = Mapper.toEntity(categoryDTO);
+        WasteCategory savedCategory = wasteCategoryRepository.save(wasteCategory);
+        return Mapper.toDTO(savedCategory);
     }
+
 
     @Override
     @Transactional
@@ -49,7 +57,7 @@ public class ServiceImplementation implements ServiceInterface {
         existingCategory.setName(updatedCategoryDTO.getName());
         existingCategory.setDisposalGuidelines(updatedCategoryDTO.getDisposalGuidelines());
         existingCategory.setRecyclingTips(updatedCategoryDTO.getRecyclingTips());
-        return WasteCategoryMapper.toDTO(wasteCategoryRepository.save(existingCategory));
+        return Mapper.toDTO(wasteCategoryRepository.save(existingCategory));
     }
 
     @Override
