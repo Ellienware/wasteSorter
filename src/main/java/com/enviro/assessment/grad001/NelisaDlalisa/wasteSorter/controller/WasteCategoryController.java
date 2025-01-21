@@ -40,6 +40,11 @@ public class WasteCategoryController {
         List<WasteCategoryDTO> categories = implementation.getAllCategories();
         return ResponseEntity.ok(categories);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<WasteCategoryDTO> updateCategory(@PathVariable Long id, @RequestBody WasteCategoryDTO updatedCategoryDTO) {
+        WasteCategoryDTO updatedCategory = implementation.updateCategory(id, updatedCategoryDTO);
+        return ResponseEntity.ok(updatedCategory);  // Returning the updated category
+    }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {

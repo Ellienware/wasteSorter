@@ -40,10 +40,5 @@ The H2 database console can be accessed by navigating to http://localhost:8081/h
     Username: ellienware
     Password: password
 
-## Run Tests
-
-## To run the tests, you can use the following Maven command:
-
-mvn test
 
 
