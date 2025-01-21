@@ -5,11 +5,10 @@ import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.entity.WasteCateg
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.exception.CategoryNotFoundException;
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.repository.WasteCategoryRepository;
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.wasteCategoryMapper.WasteCategoryMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,11 +20,9 @@ public class ServiceImplementation implements ServiceInterface {
         this.wasteCategoryRepository = wasteCategoryRepository;
     }
 
-
     @Override
     public List<WasteCategoryDTO> getAllCategories() {
-        List<WasteCategory> wasteCategories = wasteCategoryRepository.findAll();
-        return wasteCategories.stream()
+        return wasteCategoryRepository.findAll().stream()
                 .map(WasteCategoryMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -38,33 +35,34 @@ public class ServiceImplementation implements ServiceInterface {
     }
 
     @Override
+    @Transactional
     public WasteCategoryDTO createCategory(WasteCategoryDTO categoryDTO) {
         WasteCategory wasteCategory = WasteCategoryMapper.toEntity(categoryDTO);
-        WasteCategory savedWasteCategory = wasteCategoryRepository.save(wasteCategory);
-        return WasteCategoryMapper.toDTO(savedWasteCategory);
+        return WasteCategoryMapper.toDTO(wasteCategoryRepository.save(wasteCategory));
     }
 
     @Override
+    @Transactional
     public WasteCategoryDTO updateCategory(Long id, WasteCategoryDTO updatedCategoryDTO) {
         WasteCategory existingCategory = wasteCategoryRepository.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException("Category by id: " + id + " not found"));
         existingCategory.setName(updatedCategoryDTO.getName());
         existingCategory.setDisposalGuidelines(updatedCategoryDTO.getDisposalGuidelines());
         existingCategory.setRecyclingTips(updatedCategoryDTO.getRecyclingTips());
-        WasteCategory updatedCategory = wasteCategoryRepository.save(existingCategory);
-        return WasteCategoryMapper.toDTO(updatedCategory);
+        return WasteCategoryMapper.toDTO(wasteCategoryRepository.save(existingCategory));
     }
 
     @Override
+    @Transactional
     public void deleteCategory(Long id) {
-        boolean exists = wasteCategoryRepository.existsById(id);
-        if (!exists) {
+        if (!wasteCategoryRepository.existsById(id)) {
             throw new CategoryNotFoundException("Category by id: " + id + " not found");
         }
         wasteCategoryRepository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public void deleteAllCategories() {
         wasteCategoryRepository.deleteAll();
     }

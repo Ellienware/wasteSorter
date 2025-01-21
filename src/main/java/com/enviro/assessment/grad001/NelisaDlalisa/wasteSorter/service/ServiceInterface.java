@@ -3,7 +3,6 @@ package com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.service;
 import com.enviro.assessment.grad001.NelisaDlalisa.wasteSorter.dto.WasteCategoryDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ServiceInterface {
     List<WasteCategoryDTO> getAllCategories();
