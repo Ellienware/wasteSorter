@@ -61,11 +61,11 @@ class ServiceImplementationTest {
     @Test
     void testUpdateCategory_Success() {
         WasteCategory existingCategory = new WasteCategory(1L, "Metal", "Place in metal recycling bins.", "Remove any attached non-metal parts before recycling.");
-        WasteCategoryDTO updatedCategoryDTO = new WasteCategoryDTO(1L, "Metal", "Update disposal guidelines", "Update recycling tips");
+        WasteCategoryDTO updatedCategoryDTO = new WasteCategoryDTO(1L, "Electronics", "Drop off at e-waste recycling centers.", "Do not throw electronics in regular bins; remove batteries where applicable.");
         when(wasteCategoryRepository.findById(1L)).thenReturn(Optional.of(existingCategory));
         when(wasteCategoryRepository.save(existingCategory)).thenReturn(existingCategory);
         WasteCategoryDTO result = service.updateCategory(1L, updatedCategoryDTO);
-        assertEquals("Update disposal guidelines", result.getDisposalGuidelines());
+        assertEquals("Drop off at e-waste recycling centers.", result.getDisposalGuidelines());
     }
 
     @Test

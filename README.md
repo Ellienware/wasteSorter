@@ -40,5 +40,9 @@ The H2 database console can be accessed by navigating to http://localhost:8081/h
     Username: ellienware
     Password: password
 
+To run tests, execute the following command in your terminal:
 
+mvn clean test
+
+mvn test
 

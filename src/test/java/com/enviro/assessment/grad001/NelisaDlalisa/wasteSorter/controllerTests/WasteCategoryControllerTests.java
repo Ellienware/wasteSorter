@@ -62,7 +62,7 @@ class WasteCategoryControllerTest {
         when(service.updateCategory(1L, updatedCategoryDTO)).thenReturn(updatedCategoryDTO);
         ResponseEntity<WasteCategoryDTO> response = controller.updateCategory(1L, updatedCategoryDTO);
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Updated disposal guidelines", response.getBody().getDisposalGuidelines());
+        assertEquals("Drop off at e-waste recycling centers.", response.getBody().getDisposalGuidelines());
     }
 
     @Test
