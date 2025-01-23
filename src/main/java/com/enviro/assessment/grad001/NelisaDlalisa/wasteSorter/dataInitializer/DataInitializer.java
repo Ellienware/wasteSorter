@@ -17,7 +17,7 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Check if the table is empty and insert data if so
+
         if (wasteCategoryRepository.count() == 0) {
             WasteCategory metal = new WasteCategory(
                     null,

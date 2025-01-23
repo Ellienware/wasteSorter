@@ -25,6 +25,7 @@ public class WasteCategory {
     private Long id;
 
     @NotBlank(message = "Name is required")
+    @Column(length = 250)
     private String name;
 
     @NotBlank(message = "Disposal guidelines are required")
