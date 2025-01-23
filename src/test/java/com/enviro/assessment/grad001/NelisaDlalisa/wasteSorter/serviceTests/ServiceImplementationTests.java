@@ -45,10 +45,10 @@ class ServiceImplementationTest {
 
     @Test
     void testGetCategoryById_Success() {
-        WasteCategory wasteCategory = new WasteCategory(1L, "Plastic", "Place in recycling bins", "Wash and dry before recycling");
+        WasteCategory wasteCategory = new WasteCategory(1L, "Electronics", "Drop off at e-waste recycling centers.", "Do not throw electronics in regular bins; remove batteries where applicable.");
         when(wasteCategoryRepository.findById(1L)).thenReturn(Optional.of(wasteCategory));
         WasteCategoryDTO result = service.getCategoryById(1L);
-        assertEquals("Plastic", result.getName());
+        assertEquals("Electronics", result.getName());
     }
 
     @Test
@@ -60,8 +60,8 @@ class ServiceImplementationTest {
 
     @Test
     void testUpdateCategory_Success() {
-        WasteCategory existingCategory = new WasteCategory(1L, "Plastic", "Place in recycling bins", "Wash and dry before recycling");
-        WasteCategoryDTO updatedCategoryDTO = new WasteCategoryDTO(1L, "Plastic", "Update disposal guidelines", "Update recycling tips");
+        WasteCategory existingCategory = new WasteCategory(1L, "Metal", "Place in metal recycling bins.", "Remove any attached non-metal parts before recycling.");
+        WasteCategoryDTO updatedCategoryDTO = new WasteCategoryDTO(1L, "Metal", "Update disposal guidelines", "Update recycling tips");
         when(wasteCategoryRepository.findById(1L)).thenReturn(Optional.of(existingCategory));
         when(wasteCategoryRepository.save(existingCategory)).thenReturn(existingCategory);
         WasteCategoryDTO result = service.updateCategory(1L, updatedCategoryDTO);

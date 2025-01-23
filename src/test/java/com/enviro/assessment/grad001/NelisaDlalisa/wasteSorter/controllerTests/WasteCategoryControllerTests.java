@@ -30,26 +30,26 @@ class WasteCategoryControllerTest {
 
     @Test
     void testCreateCategory() {
-        WasteCategoryDTO categoryDTO = new WasteCategoryDTO(1L, "Plastic", "Place in recycling bins", "Wash and dry before recycling");
+        WasteCategoryDTO categoryDTO = new WasteCategoryDTO(1L, "Metal", "Place in metal recycling bins.", "Remove any attached non-metal parts before recycling.");
         when(service.createCategory(categoryDTO)).thenReturn(categoryDTO);
         ResponseEntity<WasteCategoryDTO> response = controller.createCategory(categoryDTO);
         assertEquals(201, response.getStatusCodeValue());
-        assertEquals("Plastic", response.getBody().getName());
+        assertEquals("Metal", response.getBody().getName());
     }
 
     @Test
     void testGetCategory() {
-        WasteCategoryDTO categoryDTO = new WasteCategoryDTO(1L, "Plastic", "Place in recycling bins", "Wash and dry before recycling");
+        WasteCategoryDTO categoryDTO = new WasteCategoryDTO(1L, "Electronics", "Drop off at e-waste recycling centers.", "Do not throw electronics in regular bins; remove batteries where applicable.");
         when(service.getCategoryById(1L)).thenReturn(categoryDTO);
         ResponseEntity<WasteCategoryDTO> response = controller.getCategory(1L);
         assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Plastic", response.getBody().getName());
+        assertEquals("Electronics", response.getBody().getName());
     }
 
     @Test
     void testGetAllCategories() {
-        WasteCategoryDTO category1 = new WasteCategoryDTO(1L, "Plastic", "Place in recycling bins", "Wash and dry before recycling");
-        WasteCategoryDTO category2 = new WasteCategoryDTO(2L, "Paper", "Place in paper recycling bin", "Keep dry");
+        WasteCategoryDTO category1 = new WasteCategoryDTO(1L, "Metal", "Place in metal recycling bins.", "Remove any attached non-metal parts before recycling.");
+        WasteCategoryDTO category2 = new WasteCategoryDTO(2L, "Electronics", "Drop off at e-waste recycling centers.", "Do not throw electronics in regular bins; remove batteries where applicable.");
         when(service.getAllCategories()).thenReturn(List.of(category1, category2));
         ResponseEntity<List<WasteCategoryDTO>> response = controller.getAllCategories();
         assertEquals(200, response.getStatusCodeValue());
@@ -58,7 +58,7 @@ class WasteCategoryControllerTest {
 
     @Test
     void testUpdateCategory() {
-        WasteCategoryDTO updatedCategoryDTO = new WasteCategoryDTO(1L, "Plastic", "Updated disposal guidelines", "Updated recycling tips");
+        WasteCategoryDTO updatedCategoryDTO = new WasteCategoryDTO(1L, "Electronics", "Drop off at e-waste recycling centers.", "Do not throw electronics in regular bins; remove batteries where applicable.");
         when(service.updateCategory(1L, updatedCategoryDTO)).thenReturn(updatedCategoryDTO);
         ResponseEntity<WasteCategoryDTO> response = controller.updateCategory(1L, updatedCategoryDTO);
         assertEquals(200, response.getStatusCodeValue());
