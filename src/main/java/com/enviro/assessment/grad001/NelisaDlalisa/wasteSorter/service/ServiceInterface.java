@@ -7,11 +7,11 @@ import java.util.List;
 public interface ServiceInterface {
     List<WasteCategoryDTO> getAllCategories();
 
-    WasteCategoryDTO getCategoryById(Long id); // Returns an Optional
+    WasteCategoryDTO getCategoryById(Long id);
 
-    WasteCategoryDTO createCategory(WasteCategoryDTO categoryDTO); // Renamed for clarity
+    WasteCategoryDTO createCategory(WasteCategoryDTO categoryDTO); //
 
-    WasteCategoryDTO updateCategory(Long id, WasteCategoryDTO updatedCategoryDTO); // Returns the updated category
+    WasteCategoryDTO updateCategory(Long id, WasteCategoryDTO updatedCategoryDTO);
 
     void deleteCategory(Long id);
 
